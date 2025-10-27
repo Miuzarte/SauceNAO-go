@@ -1,0 +1,4 @@
+github.com/Miuzarte/FlareSolverr-go v0.0.0-20251022131257-5abbc18123c0 h1:1NmU5k+2t6QGVU04BYIOfLAqpNBM773UoI2EXe2MZrE=
+github.com/Miuzarte/FlareSolverr-go v0.0.0-20251022131257-5abbc18123c0/go.mod h1:SLfHsSjC+jPgk6pcz9z0SxwL/vFaTeEAvP+6dvfAmfA=
+github.com/go-viper/mapstructure/v2 v2.4.0 h1:EBsztssimR/CONLSZZ04E8qAkxNYq4Qp9LvH92wZUgs=
+github.com/go-viper/mapstructure/v2 v2.4.0/go.mod h1:oJDH3BJKyqBA2TXFhDsKDGDTlndYOZ6rGS0BRZIxGhM=
