@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -157,7 +158,7 @@ TRYAGAIN:
 	}
 	resp := &Response{}
 	resp.RawBody = string(body)
-	err = json.Unmarshal([]byte(body), resp)
+	err = json.Unmarshal(body, resp)
 	if err != nil {
 		return nil, err
 	}
@@ -325,6 +326,15 @@ func decodeTo[T any](input map[string]any) *T {
 		panic(err)
 	}
 
+	// 未完成的结构体先返回 nil
+	rv := reflect.ValueOf(output).Elem()
+	if rv.IsValid() && rv.Kind() == reflect.Struct {
+		fv := rv.FieldByName("Todo")
+		if fv.IsValid() {
+			return nil
+		}
+	}
+
 	return output
 }
 
@@ -337,85 +347,84 @@ func (r Result) DecodeData() (ret interface{ String() string }) {
 			}
 		}
 	}()
-	data := r.Data
 	switch r.Header.IndexId {
 	case db.HMAGAZINES:
-		return decodeTo[db.ResultDataHMagazines](data)
+		return decodeTo[db.ResultDataHMagazines](r.Data)
 	case db.HGAMECG:
-		return decodeTo[db.ResultDataHGameCg](data)
+		return decodeTo[db.ResultDataHGameCg](r.Data)
 	case db.DOUJINSHIDB:
-		return decodeTo[db.ResultDataDoujinshiDb](data)
+		return decodeTo[db.ResultDataDoujinshiDb](r.Data)
 	case db.PIXIV:
-		return decodeTo[db.ResultDataPixiv](data)
+		return decodeTo[db.ResultDataPixiv](r.Data)
 	case db.SEIGA:
-		return decodeTo[db.ResultDataSeiga](data)
+		return decodeTo[db.ResultDataSeiga](r.Data)
 	case db.DANBOORU:
-		return decodeTo[db.ResultDataDanbooru](data)
+		return decodeTo[db.ResultDataDanbooru](r.Data)
 	case db.DRAWR:
-		return decodeTo[db.ResultDataDrawr](data)
+		return decodeTo[db.ResultDataDrawr](r.Data)
 	case db.NIJIE:
-		return decodeTo[db.ResultDataNijie](data)
+		return decodeTo[db.ResultDataNijie](r.Data)
 	case db.YANDERE:
-		return decodeTo[db.ResultDataYandere](data)
+		return decodeTo[db.ResultDataYandere](r.Data)
 	case db.SHUTTERSTOCK:
-		return decodeTo[db.ResultDataShutterstock](data)
+		return decodeTo[db.ResultDataShutterstock](r.Data)
 	case db.FAKKU:
-		return decodeTo[db.ResultDataFakku](data)
+		return decodeTo[db.ResultDataFakku](r.Data)
 	case db.NHENTAI:
-		return decodeTo[db.ResultDataNHentai](data)
+		return decodeTo[db.ResultDataNHentai](r.Data)
 	case db.MARKET2D:
-		return decodeTo[db.ResultDataMarket2d](data)
+		return decodeTo[db.ResultDataMarket2d](r.Data)
 	case db.MEDIBANG:
-		return decodeTo[db.ResultDataMediBang](data)
+		return decodeTo[db.ResultDataMediBang](r.Data)
 	case db.ANIME:
-		return decodeTo[db.ResultDataAnime](data)
+		return decodeTo[db.ResultDataAnime](r.Data)
 	case db.HANIME:
-		return decodeTo[db.ResultDataHAnime](data)
+		return decodeTo[db.ResultDataHAnime](r.Data)
 	case db.MOVIES:
-		return decodeTo[db.ResultDataMovies](data)
+		return decodeTo[db.ResultDataMovies](r.Data)
 	case db.SHOWS:
-		return decodeTo[db.ResultDataShows](data)
+		return decodeTo[db.ResultDataShows](r.Data)
 	case db.GELBOORU:
-		return decodeTo[db.ResultDataGelbooru](data)
+		return decodeTo[db.ResultDataGelbooru](r.Data)
 	case db.KONACHAN:
-		return decodeTo[db.ResultDataKonachan](data)
+		return decodeTo[db.ResultDataKonachan](r.Data)
 	case db.SANKAKU:
-		return decodeTo[db.ResultDataSankaku](data)
+		return decodeTo[db.ResultDataSankaku](r.Data)
 	case db.ANIMEPICTURES:
-		return decodeTo[db.ResultDataAnimePictures](data)
+		return decodeTo[db.ResultDataAnimePictures](r.Data)
 	case db.E621:
-		return decodeTo[db.ResultDataE621](data)
+		return decodeTo[db.ResultDataE621](r.Data)
 	case db.IDOLCOMPLEX:
-		return decodeTo[db.ResultDataIdolComplex](data)
+		return decodeTo[db.ResultDataIdolComplex](r.Data)
 	case db.BCY_ILLUST:
-		return decodeTo[db.ResultDataBcyIllust](data)
+		return decodeTo[db.ResultDataBcyIllust](r.Data)
 	case db.BCY_COSPLAY:
-		return decodeTo[db.ResultDataBcyCosplay](data)
+		return decodeTo[db.ResultDataBcyCosplay](r.Data)
 	case db.PORTALGRAPHICS:
-		return decodeTo[db.ResultDataPortalGraphics](data)
+		return decodeTo[db.ResultDataPortalGraphics](r.Data)
 	case db.DEVIANTART:
-		return decodeTo[db.ResultDataDeviantArt](data)
+		return decodeTo[db.ResultDataDeviantArt](r.Data)
 	case db.PAWOO:
-		return decodeTo[db.ResultDataPawoo](data)
+		return decodeTo[db.ResultDataPawoo](r.Data)
 	case db.MADOKAMI:
-		return decodeTo[db.ResultDataMadokami](data)
+		return decodeTo[db.ResultDataMadokami](r.Data)
 	case db.MANGADEX:
-		return decodeTo[db.ResultDataMangaDex](data)
+		return decodeTo[db.ResultDataMangaDex](r.Data)
 	case db.EHENTAI:
-		return decodeTo[db.ResultDataEHentai](data)
+		return decodeTo[db.ResultDataEHentai](r.Data)
 	case db.ARTSTATION:
-		return decodeTo[db.ResultDataArtStation](data)
+		return decodeTo[db.ResultDataArtStation](r.Data)
 	case db.FURAFFINITY:
-		return decodeTo[db.ResultDataFurAffinity](data)
+		return decodeTo[db.ResultDataFurAffinity](r.Data)
 	case db.TWITTER:
-		return decodeTo[db.ResultDataTwitter](data)
+		return decodeTo[db.ResultDataTwitter](r.Data)
 	case db.FURRYNETWORK:
-		return decodeTo[db.ResultDataFurryNetwork](data)
+		return decodeTo[db.ResultDataFurryNetwork](r.Data)
 	case db.KEMONO:
-		return decodeTo[db.ResultDataKemono](data)
+		return decodeTo[db.ResultDataKemono](r.Data)
 	case db.SKEB:
-		return decodeTo[db.ResultDataSkeb](data)
+		return decodeTo[db.ResultDataSkeb](r.Data)
 	default:
-		return &db.ResultDataUnknown{Raw: data}
+		return &db.ResultDataUnknown{Raw: r.Data}
 	}
 }

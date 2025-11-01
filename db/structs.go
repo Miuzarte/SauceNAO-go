@@ -17,7 +17,9 @@ func toJsonString(v any, indent string) string {
 }
 
 // 0 H-Magazines
-type ResultDataHMagazines struct{}
+type ResultDataHMagazines struct {
+	Todo struct{}
+}
 
 func (rd ResultDataHMagazines) String() string            { return "[TODO]" }
 func (rd ResultDataHMagazines) Json(indent string) string { return toJsonString(rd, indent) }
@@ -42,7 +44,9 @@ GetchuId: %s`,
 func (rd ResultDataHGameCg) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 3 DoujinshiDB
-type ResultDataDoujinshiDb struct{}
+type ResultDataDoujinshiDb struct {
+	Todo struct{}
+}
 
 func (rd ResultDataDoujinshiDb) String() string            { return "[TODO]" }
 func (rd ResultDataDoujinshiDb) Json(indent string) string { return toJsonString(rd, indent) }
@@ -144,7 +148,9 @@ MemberId: %d`,
 func (rd ResultDataDrawr) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 11 Nijie Images
-type ResultDataNijie struct{}
+type ResultDataNijie struct {
+	Todo struct{}
+}
 
 func (rd ResultDataNijie) String() string            { return "[TODO]" }
 func (rd ResultDataNijie) Json(indent string) string { return toJsonString(rd, indent) }
@@ -176,7 +182,9 @@ yande.re/post/show/%d
 func (rd ResultDataYandere) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 15 Shutterstock
-type ResultDataShutterstock struct{}
+type ResultDataShutterstock struct {
+	Todo struct{}
+}
 
 func (rd ResultDataShutterstock) String() string            { return "[TODO]" }
 func (rd ResultDataShutterstock) Json(indent string) string { return toJsonString(rd, indent) }
@@ -229,13 +237,17 @@ func (rd ResultDataDoujin) Json(indent string) string { return toJsonString(rd, 
 type ResultDataNHentai = ResultDataDoujin
 
 // 19 2D-Market
-type ResultDataMarket2d struct{}
+type ResultDataMarket2d struct {
+	Todo struct{}
+}
 
 func (rd ResultDataMarket2d) String() string            { return "[TODO]" }
 func (rd ResultDataMarket2d) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 20 MediBang
-type ResultDataMediBang struct{}
+type ResultDataMediBang struct {
+	Todo struct{}
+}
 
 func (rd ResultDataMediBang) String() string            { return "[TODO]" }
 func (rd ResultDataMediBang) Json(indent string) string { return toJsonString(rd, indent) }
@@ -269,7 +281,9 @@ Part: %s  Year: %s  Est: %s`,
 func (rd ResultDataAnime) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 22 H-Anime
-type ResultDataHAnime struct{}
+type ResultDataHAnime struct {
+	Todo struct{}
+}
 
 func (rd ResultDataHAnime) String() string            { return "[TODO]" }
 func (rd ResultDataHAnime) Json(indent string) string { return toJsonString(rd, indent) }
@@ -299,43 +313,75 @@ Part: %s  Year: %s  Est: %s`,
 func (rd ResultDataMovies) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 24 Shows
-type ResultDataShows struct{}
+type ResultDataShows struct {
+	Todo struct{}
+}
 
 func (rd ResultDataShows) String() string            { return "[TODO]" }
 func (rd ResultDataShows) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 25 Gelbooru
-type ResultDataGelbooru struct{}
+type ResultDataGelbooru struct {
+	ExtUrls    []string `json:"ext_urls"`
+	GelbooruId int      `json:"gelbooru_id"`
+	Creator    string   `json:"creator"`    // ""
+	Material   string   `json:"material"`   // ""
+	Characters string   `json:"characters"` // ""
+	Source     string   `json:"source"`
+}
 
-func (rd ResultDataGelbooru) String() string            { return "[TODO]" }
+func (rd ResultDataGelbooru) String() string {
+	return fmt.Sprintf(
+		`%s
+%s
+%s
+gelbooru.com/index.php?page=post&s=view&id=%d
+%s`,
+		rd.Characters,
+		rd.Material,
+		rd.Creator,
+		rd.GelbooruId,
+		rd.Source,
+	)
+}
 func (rd ResultDataGelbooru) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 26 Konachan
-type ResultDataKonachan struct{}
+type ResultDataKonachan struct {
+	Todo struct{}
+}
 
 func (rd ResultDataKonachan) String() string            { return "[TODO]" }
 func (rd ResultDataKonachan) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 27 Sankaku Channel
-type ResultDataSankaku struct{}
+type ResultDataSankaku struct {
+	Todo struct{}
+}
 
 func (rd ResultDataSankaku) String() string            { return "[TODO]" }
 func (rd ResultDataSankaku) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 28 Anime-Pictures.net
-type ResultDataAnimePictures struct{}
+type ResultDataAnimePictures struct {
+	Todo struct{}
+}
 
 func (rd ResultDataAnimePictures) String() string            { return "[TODO]" }
 func (rd ResultDataAnimePictures) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 29 e621.net
-type ResultDataE621 struct{}
+type ResultDataE621 struct {
+	Todo struct{}
+}
 
 func (rd ResultDataE621) String() string            { return "[TODO]" }
 func (rd ResultDataE621) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 30 Idol Complex
-type ResultDataIdolComplex struct{}
+type ResultDataIdolComplex struct {
+	Todo struct{}
+}
 
 func (rd ResultDataIdolComplex) String() string            { return "[TODO]" }
 func (rd ResultDataIdolComplex) Json(indent string) string { return toJsonString(rd, indent) }
@@ -366,13 +412,17 @@ MemberId: %d`,
 func (rd ResultDataBcyIllust) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 32 bcy.net Cosplay
-type ResultDataBcyCosplay struct{}
+type ResultDataBcyCosplay struct {
+	Todo struct{}
+}
 
 func (rd ResultDataBcyCosplay) String() string            { return "[TODO]" }
 func (rd ResultDataBcyCosplay) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 33 PortalGraphics.net
-type ResultDataPortalGraphics struct{}
+type ResultDataPortalGraphics struct {
+	Todo struct{}
+}
 
 func (rd ResultDataPortalGraphics) String() string            { return "[TODO]" }
 func (rd ResultDataPortalGraphics) Json(indent string) string { return toJsonString(rd, indent) }
@@ -399,13 +449,17 @@ deviantart.com/view/%s
 func (rd ResultDataDeviantArt) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 35 Pawoo.net
-type ResultDataPawoo struct{}
+type ResultDataPawoo struct {
+	Todo struct{}
+}
 
 func (rd ResultDataPawoo) String() string            { return "[TODO]" }
 func (rd ResultDataPawoo) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 36 Madokami (Manga)
-type ResultDataMadokami struct{}
+type ResultDataMadokami struct {
+	Todo struct{}
+}
 
 func (rd ResultDataMadokami) String() string            { return "[TODO]" }
 func (rd ResultDataMadokami) Json(indent string) string { return toJsonString(rd, indent) }
@@ -465,7 +519,9 @@ artstation.com/artwork/%s
 func (rd ResultDataArtStation) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 40 FurAffinity
-type ResultDataFurAffinity struct{}
+type ResultDataFurAffinity struct {
+	Todo struct{}
+}
 
 func (rd ResultDataFurAffinity) String() string            { return "[TODO]" }
 func (rd ResultDataFurAffinity) Json(indent string) string { return toJsonString(rd, indent) }
@@ -507,7 +563,9 @@ x.com/intent/user?user_id=%s`,
 func (rd ResultDataTwitter) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 42 Furry Network
-type ResultDataFurryNetwork struct{}
+type ResultDataFurryNetwork struct {
+	Todo struct{}
+}
 
 func (rd ResultDataFurryNetwork) String() string            { return "[TODO]" }
 func (rd ResultDataFurryNetwork) Json(indent string) string { return toJsonString(rd, indent) }
