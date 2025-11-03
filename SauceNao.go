@@ -311,6 +311,14 @@ type ResultHeader struct {
 
 func decodeTo[T any](input map[string]any) *T {
 	output := new(T)
+	// 未完成的结构体先返回 nil
+	rv := reflect.ValueOf(output).Elem()
+	if rv.IsValid() && rv.Kind() == reflect.Struct {
+		fv := rv.FieldByName("Todo")
+		if fv.IsValid() {
+			return nil
+		}
+	}
 
 	config := mapstructure.DecoderConfig{
 		TagName:          "json",
@@ -324,15 +332,6 @@ func decodeTo[T any](input map[string]any) *T {
 	err = decoder.Decode(input)
 	if err != nil {
 		panic(err)
-	}
-
-	// 未完成的结构体先返回 nil
-	rv := reflect.ValueOf(output).Elem()
-	if rv.IsValid() && rv.Kind() == reflect.Struct {
-		fv := rv.FieldByName("Todo")
-		if fv.IsValid() {
-			return nil
-		}
 	}
 
 	return output

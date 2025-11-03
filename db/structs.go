@@ -18,10 +18,20 @@ func toJsonString(v any, indent string) string {
 
 // 0 H-Magazines
 type ResultDataHMagazines struct {
-	Todo struct{}
+	Title string `json:"title"`
+	Part  string `json:"part"`
+	Date  string `json:"date"`
 }
 
-func (rd ResultDataHMagazines) String() string            { return "[TODO]" }
+func (rd ResultDataHMagazines) String() string {
+	return fmt.Sprintf(
+		`%s
+Part: %s
+Date: %s`, rd.Title,
+		rd.Part,
+		rd.Date,
+	)
+}
 func (rd ResultDataHMagazines) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 2 H-Game CG
@@ -191,7 +201,6 @@ func (rd ResultDataShutterstock) Json(indent string) string { return toJsonStrin
 
 // 16 FAKKU
 type ResultDataFakku struct {
-	// ALL
 	ExtUrls []string `json:"ext_urls"`
 	Source  string   `json:"source"`
 	Creator string   `json:"creator"`
@@ -386,38 +395,36 @@ type ResultDataIdolComplex struct {
 func (rd ResultDataIdolComplex) String() string            { return "[TODO]" }
 func (rd ResultDataIdolComplex) Json(indent string) string { return toJsonString(rd, indent) }
 
-// 31 bcy.net Illust
-type ResultDataBcyIllust struct {
+// 31|32 bcy.net Illust
+type ResultDataBcy struct {
 	ExtUrls      []string `json:"ext_urls"`
 	Title        string   `json:"title"`
 	BcyId        int      `json:"bcy_id"`
 	MemberName   string   `json:"member_name"`
 	MemberId     int      `json:"member_id"`
-	MemberLinkId int      `json:"member_link_id"` // "https://bcy.net/illust/detail/{.MemberLinkId}"
-	BcyType      string   `json:"bcy_type"`       // "illust"
+	MemberLinkId int      `json:"member_link_id"` // "https://bcy.net/illust/detail/{.MemberLinkId}" | "https://bcy.net/coser/detail/{.MemberLinkId}"
+	BcyType      string   `json:"bcy_type"`       // "illust" | "coser"
 }
 
-func (rd ResultDataBcyIllust) String() string {
+func (rd ResultDataBcy) String() string {
 	return fmt.Sprintf(
 		`%s
-bcy.net/illust/detail/%d
+bcy.net/%s/detail/%d
 MemberName: %s
 MemberId: %d`,
 		rd.Title,
-		rd.MemberLinkId,
+		rd.BcyType, rd.MemberLinkId,
 		rd.MemberName,
 		rd.MemberId,
 	)
 }
-func (rd ResultDataBcyIllust) Json(indent string) string { return toJsonString(rd, indent) }
+func (rd ResultDataBcy) Json(indent string) string { return toJsonString(rd, indent) }
+
+// 31 bcy.net Illust
+type ResultDataBcyIllust = ResultDataBcy
 
 // 32 bcy.net Cosplay
-type ResultDataBcyCosplay struct {
-	Todo struct{}
-}
-
-func (rd ResultDataBcyCosplay) String() string            { return "[TODO]" }
-func (rd ResultDataBcyCosplay) Json(indent string) string { return toJsonString(rd, indent) }
+type ResultDataBcyCosplay = ResultDataBcy
 
 // 33 PortalGraphics.net
 type ResultDataPortalGraphics struct {
