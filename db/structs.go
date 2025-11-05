@@ -457,10 +457,22 @@ func (rd ResultDataDeviantArt) Json(indent string) string { return toJsonString(
 
 // 35 Pawoo.net
 type ResultDataPawoo struct {
-	Todo struct{}
+	ExtUrls              []string `json:"ext_urls"`
+	CreatedAt            string   `json:"created_at"`
+	PawooId              int      `json:"pawoo_id"`
+	PawooUserAcct        string   `json:"pawoo_user_acct"`
+	PawooUserUsername    string   `json:"pawoo_user_username"`
+	PawooUserDisplayName string   `json:"pawoo_user_display_name"`
 }
 
-func (rd ResultDataPawoo) String() string            { return "[TODO]" }
+func (rd ResultDataPawoo) String() string {
+	return fmt.Sprintf(
+		`%s
+pawoo.net/@%s`,
+		rd.CreatedAt,
+		rd.PawooUserAcct,
+	)
+}
 func (rd ResultDataPawoo) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 36 Madokami (Manga)
