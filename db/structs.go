@@ -389,10 +389,26 @@ func (rd ResultDataE621) Json(indent string) string { return toJsonString(rd, in
 
 // 30 Idol Complex
 type ResultDataIdolComplex struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	IdolId     int      `json:"idol_id"`
+	Creator    string   `json:"creator"` // ""
+	Material   string   `json:"material"`
+	Characters string   `json:"characters"`
+	Source     string   `json:"source"` // ""
 }
 
-func (rd ResultDataIdolComplex) String() string            { return "[TODO]" }
+func (rd ResultDataIdolComplex) String() string {
+	return fmt.Sprintf(
+		`Creator: %s
+Material: %s
+Characters: %s
+https://www.idolcomplex.com/zh-CN/post/show/%d`,
+		rd.Creator,
+		rd.Material,
+		rd.Characters,
+		rd.IdolId,
+	)
+}
 func (rd ResultDataIdolComplex) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 31|32 bcy.net Illust
@@ -539,10 +555,25 @@ func (rd ResultDataArtStation) Json(indent string) string { return toJsonString(
 
 // 40 FurAffinity
 type ResultDataFurAffinity struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	Title      string   `json:"title"`
+	FaId       int      `json:"fa_id"`
+	AuthorName string   `json:"author_name"`
+	AuthorUrl  string   `json:"author_url"`
 }
 
-func (rd ResultDataFurAffinity) String() string            { return "[TODO]" }
+func (rd ResultDataFurAffinity) String() string {
+	return fmt.Sprintf(
+		`%s
+Author: %s
+https://www.furaffinity.net/view/%d
+%s`,
+		rd.Title,
+		rd.AuthorName,
+		rd.FaId,
+		rd.AuthorUrl,
+	)
+}
 func (rd ResultDataFurAffinity) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 41 Twitter
