@@ -493,10 +493,21 @@ func (rd ResultDataPawoo) Json(indent string) string { return toJsonString(rd, i
 
 // 36 Madokami (Manga)
 type ResultDataMadokami struct {
-	Todo struct{}
+	Source string `json:"source"`
+	Part   string `json:"part"`
+	Type   string `json:"type"`
 }
 
-func (rd ResultDataMadokami) String() string            { return "[TODO]" }
+func (rd ResultDataMadokami) String() string {
+	return fmt.Sprintf(
+		`Source: %s
+Part: %s
+Type: %s`,
+		rd.Source,
+		rd.Part,
+		rd.Type,
+	)
+}
 func (rd ResultDataMadokami) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 37 MangaDex
