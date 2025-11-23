@@ -291,10 +291,24 @@ func (rd ResultDataAnime) Json(indent string) string { return toJsonString(rd, i
 
 // 22 H-Anime
 type ResultDataHAnime struct {
-	Todo struct{}
+	ExtUrls  []string `json:"ext_urls"`
+	Source   string   `json:"source"`
+	AnidbAid int      `json:"anidb_aid"` // "https://anidb.net/anime/{.AnidbAid}"
+	Part     string   `json:"part"`
+	Year     string   `json:"year"`
+	EstTime  string   `json:"est_time"`
 }
 
-func (rd ResultDataHAnime) String() string            { return "[TODO]" }
+func (rd ResultDataHAnime) String() string {
+	return fmt.Sprintf(
+		`%s
+anidb.net/anime/%d
+Part: %s  Year: %s  Est: %s`,
+		rd.Source,
+		rd.AnidbAid,
+		rd.Part, rd.Year, rd.EstTime,
+	)
+}
 func (rd ResultDataHAnime) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 23 Movies
@@ -323,10 +337,26 @@ func (rd ResultDataMovies) Json(indent string) string { return toJsonString(rd, 
 
 // 24 Shows
 type ResultDataShows struct {
-	Todo struct{}
+	ExtUrls []string `json:"ext_urls"`
+	Source  string   `json:"source"`
+	ImdbId  string   `json:"imdb_id"`
+	Part    string   `json:"part"`
+	Year    string   `json:"year"`
+	EstTime string   `json:"est_time"`
 }
 
-func (rd ResultDataShows) String() string            { return "[TODO]" }
+func (rd ResultDataShows) String() string {
+	return fmt.Sprintf(
+		`%s
+imdb.com/title/%s
+Part: %s  Year: %s  Est: %s`,
+		rd.Source,
+		rd.ImdbId,
+		rd.Part,
+		rd.Year,
+		rd.EstTime,
+	)
+}
 func (rd ResultDataShows) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 25 Gelbooru
