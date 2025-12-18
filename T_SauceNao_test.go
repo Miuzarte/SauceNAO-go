@@ -26,7 +26,7 @@ func TestPost(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := NewClient("", "", 0, false, testFsClient)
+	client := NewClient("", "", 0, 0, testFsClient)
 	resp, err := client.Post(t.Context(), imgData)
 	if err != nil {
 		t.Fatal(err)
@@ -35,7 +35,7 @@ func TestPost(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	client := NewClient("", "", 0, false, testFsClient)
+	client := NewClient("", "", 0, 0, testFsClient)
 	resp, err := client.Get(t.Context(), testUrl)
 	if err != nil {
 		t.Fatal(err)

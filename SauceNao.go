@@ -30,7 +30,7 @@ type Client struct {
 	ApiKey             string
 	Host               string
 	NumRes             int
-	Hide               bool
+	Hide               int
 	FlareSolverrClient *fs.Client
 
 	cache struct {
@@ -49,7 +49,7 @@ func (e *HttpError) Error() string {
 	return fmt.Sprintf("http error %d: %s, %s", e.StatusCode, e.Url, e.Body)
 }
 
-func NewClient(apiKey, overrideHost string, numRes int, hide bool, fsClient *fs.Client) *Client {
+func NewClient(apiKey, overrideHost string, numRes, hide int, fsClient *fs.Client) *Client {
 	host := overrideHost
 	if host == "" {
 		host = API_HOST
@@ -237,7 +237,7 @@ func (c *Client) buildPostRequest(ctx context.Context, imgData []byte) (*http.Re
 	if c.NumRes > 0 {
 		query.Add("numres", strconv.Itoa(c.NumRes))
 	}
-	query.Add("hide", strconv.FormatBool(c.Hide))
+	query.Add("hide", strconv.Itoa(c.Hide))
 	req.URL.RawQuery = query.Encode()
 
 	return c.requestSetHeader(req), nil
@@ -253,7 +253,7 @@ func (c *Client) buildGetRequest(ctx context.Context, imgUrl string) (*http.Requ
 	query.Add("api_key", c.ApiKey)
 	query.Add("output_type", "2")
 	query.Add("numres", strconv.Itoa(c.NumRes))
-	query.Add("hide", strconv.FormatBool(c.Hide))
+	query.Add("hide", strconv.Itoa(c.Hide))
 	u.RawQuery = query.Encode()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
