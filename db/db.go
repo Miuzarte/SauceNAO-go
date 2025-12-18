@@ -5,44 +5,45 @@ import "reflect"
 type IndexId int
 
 const (
-	HMAGAZINES     IndexId = 0  // H-Magazines
-	HGAMECG        IndexId = 2  // H-Game CG
-	DOUJINSHIDB    IndexId = 3  // DoujinshiDB
-	PIXIV          IndexId = 5  // pixiv Images
-	SEIGA          IndexId = 8  // Nico Nico Seiga
-	DANBOORU       IndexId = 9  // Danbooru
-	DRAWR          IndexId = 10 // drawr Images
-	NIJIE          IndexId = 11 // Nijie Images
-	YANDERE        IndexId = 12 // Yande.re
-	SHUTTERSTOCK   IndexId = 15 // Shutterstock
-	FAKKU          IndexId = 16 // FAKKU
-	NHENTAI        IndexId = 18 // H-Misc (nH)
-	MARKET2D       IndexId = 19 // 2D-Market
-	MEDIBANG       IndexId = 20 // MediBang
-	ANIME          IndexId = 21 // Anime
-	HANIME         IndexId = 22 // H-Anime
-	MOVIES         IndexId = 23 // Movies
-	SHOWS          IndexId = 24 // Shows
-	GELBOORU       IndexId = 25 // Gelbooru
-	KONACHAN       IndexId = 26 // Konachan
-	SANKAKU        IndexId = 27 // Sankaku Channel
-	ANIMEPICTURES  IndexId = 28 // Anime-Pictures.net
-	E621           IndexId = 29 // e621.net
-	IDOLCOMPLEX    IndexId = 30 // Idol Complex
-	BCY_ILLUST     IndexId = 31 // bcy.net Illust
-	BCY_COSPLAY    IndexId = 32 // bcy.net Cosplay
-	PORTALGRAPHICS IndexId = 33 // PortalGraphics.net
-	DEVIANTART     IndexId = 34 // deviantArt
-	PAWOO          IndexId = 35 // Pawoo.net
-	MADOKAMI       IndexId = 36 // Madokami (Manga)
-	MANGADEX       IndexId = 37 // MangaDex
-	EHENTAI        IndexId = 38 // H-Misc (eH)
-	ARTSTATION     IndexId = 39 // ArtStation
-	FURAFFINITY    IndexId = 40 // FurAffinity
-	TWITTER        IndexId = 41 // Twitter
-	FURRYNETWORK   IndexId = 42 // Furry Network
-	KEMONO         IndexId = 43 // Kemono
-	SKEB           IndexId = 44 // Skeb
+	HMAGAZINES     IndexId = 0   // H-Magazines
+	HGAMECG        IndexId = 2   // H-Game CG
+	DOUJINSHIDB    IndexId = 3   // DoujinshiDB
+	PIXIV          IndexId = 5   // pixiv Images
+	SEIGA          IndexId = 8   // Nico Nico Seiga
+	DANBOORU       IndexId = 9   // Danbooru
+	DRAWR          IndexId = 10  // drawr Images
+	NIJIE          IndexId = 11  // Nijie Images
+	YANDERE        IndexId = 12  // Yande.re
+	SHUTTERSTOCK   IndexId = 15  // Shutterstock
+	FAKKU          IndexId = 16  // FAKKU
+	NHENTAI        IndexId = 18  // H-Misc (nH)
+	MARKET2D       IndexId = 19  // 2D-Market
+	MEDIBANG       IndexId = 20  // MediBang
+	ANIME          IndexId = 21  // Anime
+	HANIME         IndexId = 22  // H-Anime
+	MOVIES         IndexId = 23  // Movies
+	SHOWS          IndexId = 24  // Shows
+	GELBOORU       IndexId = 25  // Gelbooru
+	KONACHAN       IndexId = 26  // Konachan
+	SANKAKU        IndexId = 27  // Sankaku Channel
+	ANIMEPICTURES  IndexId = 28  // Anime-Pictures.net
+	E621           IndexId = 29  // e621.net
+	IDOLCOMPLEX    IndexId = 30  // Idol Complex
+	BCY_ILLUST     IndexId = 31  // bcy.net Illust
+	BCY_COSPLAY    IndexId = 32  // bcy.net Cosplay
+	PORTALGRAPHICS IndexId = 33  // PortalGraphics.net
+	DEVIANTART     IndexId = 34  // deviantArt
+	PAWOO          IndexId = 35  // Pawoo.net
+	MADOKAMI       IndexId = 36  // Madokami (Manga)
+	MANGADEX       IndexId = 37  // MangaDex
+	MANGADEX2      IndexId = 371 // MangaDex2
+	EHENTAI        IndexId = 38  // H-Misc (eH)
+	ARTSTATION     IndexId = 39  // ArtStation
+	FURAFFINITY    IndexId = 40  // FurAffinity
+	TWITTER        IndexId = 41  // Twitter
+	FURRYNETWORK   IndexId = 42  // Furry Network
+	KEMONO         IndexId = 43  // Kemono
+	SKEB           IndexId = 44  // Skeb
 	ALL            IndexId = 999
 )
 
@@ -50,8 +51,11 @@ func (di IndexId) String() string {
 	if di >= 0 && int(di) < len(dbIdToName) {
 		return dbIdToName[di]
 	}
-	if di == ALL {
+	switch di {
+	case ALL:
 		return "All DBs"
+	case MANGADEX2:
+		return "MangaDex2"
 	}
 	return "Unknown DB"
 }

@@ -247,10 +247,21 @@ type ResultDataNHentai = ResultDataDoujin
 
 // 19 2D-Market
 type ResultDataMarket2d struct {
-	Todo struct{}
+	ExtUrls []string `json:"ext_urls"`
+	Source  string   `json:"source"`
+	Creator string   `json:"creator"`
 }
 
-func (rd ResultDataMarket2d) String() string            { return "[TODO]" }
+func (rd ResultDataMarket2d) String() string {
+	return fmt.Sprintf(
+		`%s
+%s
+%s`,
+		rd.Source,
+		rd.Creator,
+		strings.Join(rd.ExtUrls, "\n"),
+	)
+}
 func (rd ResultDataMarket2d) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 20 MediBang
@@ -395,10 +406,26 @@ func (rd ResultDataKonachan) Json(indent string) string { return toJsonString(rd
 
 // 27 Sankaku Channel
 type ResultDataSankaku struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	SankakuId  int      `json:"sankaku_id"`
+	Creator    string   `json:"creator"`
+	Material   string   `json:"material"`
+	Characters string   `json:"characters"`
+	Source     string   `json:"source"` // ""
 }
 
-func (rd ResultDataSankaku) String() string            { return "[TODO]" }
+func (rd ResultDataSankaku) String() string {
+	return fmt.Sprintf(
+		`%s
+%s
+%s
+chan.sankakucomplex.com/post/show/%d`,
+		rd.Creator,
+		rd.Material,
+		rd.Characters,
+		rd.SankakuId,
+	)
+}
 func (rd ResultDataSankaku) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 28 Anime-Pictures.net
@@ -432,7 +459,7 @@ func (rd ResultDataIdolComplex) String() string {
 		`Creator: %s
 Material: %s
 Characters: %s
-https://www.idolcomplex.com/zh-CN/post/show/%d`,
+www.idolcomplex.com/zh-CN/post/show/%d`,
 		rd.Creator,
 		rd.Material,
 		rd.Characters,
@@ -607,7 +634,7 @@ func (rd ResultDataFurAffinity) String() string {
 	return fmt.Sprintf(
 		`%s
 Author: %s
-https://www.furaffinity.net/view/%d
+www.furaffinity.net/view/%d
 %s`,
 		rd.Title,
 		rd.AuthorName,
