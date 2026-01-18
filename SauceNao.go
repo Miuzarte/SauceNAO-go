@@ -57,7 +57,7 @@ func NewClient(apiKey, overrideHost string, numRes, hide int, fsClient *fs.Clien
 		if !strings.HasPrefix(overrideHost, "http") {
 			overrideHost = "https://" + overrideHost
 		}
-		host = strings.TrimRight(overrideHost, "/")
+		host = strings.TrimSuffix(overrideHost, "/")
 	}
 	return &Client{
 		ApiKey:             apiKey,

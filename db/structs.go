@@ -159,10 +159,25 @@ func (rd ResultDataDrawr) Json(indent string) string { return toJsonString(rd, i
 
 // 11 Nijie Images
 type ResultDataNijie struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	Title      string   `json:"title"`
+	NijieId    int      `json:"nijie_id"`
+	MemberName string   `json:"member_name"`
+	MemberId   int      `json:"member_id"`
 }
 
-func (rd ResultDataNijie) String() string            { return "[TODO]" }
+func (rd ResultDataNijie) String() string {
+	return fmt.Sprintf(
+		`%s
+nijie.info/view.php?id=%d
+MemberName: %s
+MemberId: %d`,
+		rd.Title,
+		rd.NijieId,
+		rd.MemberName,
+		rd.MemberId,
+	)
+}
 func (rd ResultDataNijie) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 12 Yande.re
@@ -438,10 +453,26 @@ func (rd ResultDataAnimePictures) Json(indent string) string { return toJsonStri
 
 // 29 e621.net
 type ResultDataE621 struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	E621Id     int      `json:"e621_id"`
+	Creator    string   `json:"creator"`
+	Material   string   `json:"material"`
+	Characters string   `json:"characters"`
+	Source     string   `json:"source"`
 }
 
-func (rd ResultDataE621) String() string            { return "[TODO]" }
+func (rd ResultDataE621) String() string {
+	return fmt.Sprintf(
+		`Creator: %s
+Material: %s
+Characters: %s
+e621.net/post/show/%d`,
+		rd.Creator,
+		rd.Material,
+		rd.Characters,
+		rd.E621Id,
+	)
+}
 func (rd ResultDataE621) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 30 Idol Complex
@@ -682,10 +713,26 @@ func (rd ResultDataTwitter) Json(indent string) string { return toJsonString(rd,
 
 // 42 Furry Network
 type ResultDataFurryNetwork struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	Title      string   `json:"title"`
+	FnId       int      `json:"fn_id"`
+	FnType     string   `json:"fn_type"`
+	AuthorName string   `json:"author_name"`
+	AuthorUrl  string   `json:"author_url"`
 }
 
-func (rd ResultDataFurryNetwork) String() string            { return "[TODO]" }
+func (rd ResultDataFurryNetwork) String() string {
+	return fmt.Sprintf(
+		`%s
+furrynetwork.com/%s/%d
+Author: %s
+%s`,
+		rd.Title,
+		rd.FnType, rd.FnId,
+		rd.AuthorName,
+		strings.TrimPrefix(rd.AuthorUrl, "https://"),
+	)
+}
 func (rd ResultDataFurryNetwork) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 43 Kemono
