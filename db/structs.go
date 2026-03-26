@@ -281,10 +281,25 @@ func (rd ResultDataMarket2d) Json(indent string) string { return toJsonString(rd
 
 // 20 MediBang
 type ResultDataMediBang struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	Title      string   `json:"title"`
+	Url        string   `json:"url"`
+	MemberName string   `json:"member_name"`
+	MemberId   int      `json:"member_id"`
 }
 
-func (rd ResultDataMediBang) String() string            { return "[TODO]" }
+func (rd ResultDataMediBang) String() string {
+	return fmt.Sprintf(
+		`%s
+%s
+MemberName: %s
+MemberId: %d`,
+		rd.Title,
+		rd.Url,
+		rd.MemberName,
+		rd.MemberId,
+	)
+}
 func (rd ResultDataMediBang) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 21 Anime
@@ -413,10 +428,28 @@ func (rd ResultDataGelbooru) Json(indent string) string { return toJsonString(rd
 
 // 26 Konachan
 type ResultDataKonachan struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"`
+	KonachanId int      `json:"konachan_id"`
+	Creator    string   `json:"creator"`
+	Material   string   `json:"material"`
+	Characters string   `json:"characters"`
+	Source     string   `json:"source"`
 }
 
-func (rd ResultDataKonachan) String() string            { return "[TODO]" }
+func (rd ResultDataKonachan) String() string {
+	return fmt.Sprintf(
+		`%s
+%s
+%s
+konachan.com/post/show/%d
+%s`,
+		rd.Creator,
+		rd.Material,
+		rd.Characters,
+		rd.KonachanId,
+		rd.Source,
+	)
+}
 func (rd ResultDataKonachan) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 27 Sankaku Channel
