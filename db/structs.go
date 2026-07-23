@@ -565,10 +565,26 @@ type ResultDataBcyCosplay = ResultDataBcy
 
 // 33 PortalGraphics.net
 type ResultDataPortalGraphics struct {
-	Todo struct{}
+	ExtUrls    []string `json:"ext_urls"` // "https://web.archive.org/web/http://www.portalgraphics.net/pg/illust/?image_id={.PgId}"
+	Title      string   `json:"title"`
+	PgId       int      `json:"pg_id"`
+	MemberName string   `json:"member_name"`
+	MemberId   int      `json:"member_id"`
 }
 
-func (rd ResultDataPortalGraphics) String() string            { return "[TODO]" }
+func (rd ResultDataPortalGraphics) String() string {
+	return fmt.Sprintf(
+		`%s
+web.archive.org/web/http://www.portalgraphics.net/pg/illust/?image_id=%d
+MemberName: %s
+MemberId: %d`,
+		rd.Title,
+		rd.PgId,
+		rd.MemberName,
+		rd.MemberId,
+	)
+}
+
 func (rd ResultDataPortalGraphics) Json(indent string) string { return toJsonString(rd, indent) }
 
 // 34 deviantArt
